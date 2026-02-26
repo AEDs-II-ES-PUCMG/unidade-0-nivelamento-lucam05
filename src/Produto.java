@@ -60,7 +60,16 @@ public class Produto {
      *  @return String com o formato:
      * [NOME]: R$ [VALOR DE VENDA]
      */
-    @Override
+	/**
+	* Igualdade de produtos: caso possuam o mesmo nome/descrição.
+	* @param obj Outro produto a ser comparado
+	* @return booleano true/false conforme o parâmetro possua a descrição igual ou não a este produto.
+	*/
+		@Override
+	public boolean equals(Object obj){
+	Produto outro = (Produto)obj;
+	return this.descricao.toLowerCase().equals(outro.descricao.toLowerCase());
+	}
 	public String toString() {
     	
     	NumberFormat moeda = NumberFormat.getCurrencyInstance();
