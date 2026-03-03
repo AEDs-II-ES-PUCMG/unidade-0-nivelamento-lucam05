@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 public class ProdutoNaoPerecivel extends Produto {
 
     public ProdutoNaoPerecivel(String desc, double precoCusto, double margemLucro) {
@@ -11,4 +13,10 @@ public class ProdutoNaoPerecivel extends Produto {
     public double valorDeVenda() {
         return super.valorDeVenda();
     }
+    public String gerarDadosTexto() {
+
+        return String.format(Locale.US,"1,%s,%.2f,%2f", getDescricao(),getPrecoCusto(),getMargemLucro());
+
+    }
+
 }

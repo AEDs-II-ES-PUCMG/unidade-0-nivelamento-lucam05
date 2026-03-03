@@ -1,6 +1,9 @@
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-public class Produto {
+
+public abstract class Produto {
 	
 	private static final double MARGEM_PADRAO = 0.2;
 	private String descricao;
@@ -46,6 +49,10 @@ public class Produto {
 	public Produto(String desc, double precoCusto) {
 		init(desc, precoCusto, MARGEM_PADRAO);
 	}
+
+	public String getDescricao(){return descricao;}
+	public double getPrecoCusto(){return precoCusto;}
+	public double getMargemLucro(){return margemLucro;}
 	
 	 /**
      * Retorna o valor de venda do produto, considerando seu preço de custo e margem de lucro.
@@ -76,4 +83,32 @@ public class Produto {
     	
 		return String.format("NOME: " + descricao + ": " + moeda.format(valorDeVenda()));
 	}
+	/**
+* Gera uma linha de texto a partir dos dados do produto
+* @return Uma string no formato "tipo; descrição;preçoDeCusto;margemDeLucro;[dataDeValidade]"
+*/
+	public abstract String gerarDadosTexto();
+
+	static Produto criarDoTexto(String linha){
+		Produto novoProduto = null;
+		String[] partes = linha.split(";");
+		int tipo=Integer.parseInt(partes[0].trim());
+		String desc = partes[1].trim();
+
+		double custo = Double.parseDouble(partes[2].trim().replace(",", "."));
+        double margem = Double.parseDouble(partes[3].trim().replace(",", "."));
+
+		if(tipo==1){
+			novoProduto = new ProdutoNaoPerecivel(desc, custo, margem);
+		}else if(tipo == 2){
+			String dataStr = partes[4].trim();
+			DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate validade = LocalDate.parse(dataStr,formatter);
+			novoProduto = new ProdutoPerecivel(desc, custo, margem, validade);
+		}
+		
+
+		return novoProduto;
+	}
+
 }

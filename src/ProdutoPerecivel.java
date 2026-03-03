@@ -1,5 +1,7 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 public class ProdutoPerecivel extends Produto {
 
@@ -29,6 +31,13 @@ public class ProdutoPerecivel extends Produto {
         }
 
         return precoFinal;
+    }
+    public String gerarDadosTexto() {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        return String.format(Locale.US,"1,%s,%.2f,%2f,%s", getDescricao(),getPrecoCusto(),getMargemLucro(),dataDeValidade.format(formatter));
+
     }
 
     public String toString(){
