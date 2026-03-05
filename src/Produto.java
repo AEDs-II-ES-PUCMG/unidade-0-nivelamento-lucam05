@@ -9,6 +9,7 @@ public abstract class Produto {
 	private String descricao;
 	private double precoCusto;
 	private double margemLucro;
+	private int quantidadeEmEstoque;
 	
 	/**
      * Inicializador privado. Os valores default, em caso de erro, são:
@@ -53,6 +54,7 @@ public abstract class Produto {
 	public String getDescricao(){return descricao;}
 	public double getPrecoCusto(){return precoCusto;}
 	public double getMargemLucro(){return margemLucro;}
+	public int getQuantidadeEmEstoque(){return quantidadeEmEstoque;}
 	
 	 /**
      * Retorna o valor de venda do produto, considerando seu preço de custo e margem de lucro.
